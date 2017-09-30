@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+   <div class="col-md-8 col-md-offset-2" >
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="">name:</label>
+                <input type="text" id="name" name="name" class="form-control" value="{{name}}" style="widthpx ">
+            </div>
+            <div class="form-group">
+                <label for="">script type:</label>
+                <input type="text" id="stype" name="stype" class="form-control" value="{{stype}}">
+            </div>
+            <div class="form-group">
+                <label for="">参数名: <br>列表:[name1,name2,...... ],执行的时候手动输入值传参到脚本执行。</label>
+                <input name="inputval" id="inputval"  class="form-control" value="{{inputval}}"></input>
+            </div>
+
+            <div class="form-group">
+                <label for="">选择型参数:<br>字典:{key1:[value1,velue1],key2:,[vuelue],......}，设定参数的名称和值，执行的时候选择执行条件。</label>
+                <input name="paras" id="paras"  class="form-control" value="{{paras}}"></input>
+            </div>
+            <div class="form-group">
+                <label for="">脚本：</label>
+                <textarea name="script" id="script" cols="20" rows="7" class="form-control">{{ script }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="submit"value="ok" class="btn btn-primary">
+                <input type="reset" value="Cancel" class="btn btn-danger">
+            </div>
+        </form>
+    </div>
+    <script>
+     var editor =CodeMirror.fromTextArea(document.getElementById("script"),{
+        lineNumbers: true,
+        indentUnit:4,
+        styleActiveLine:true,
+        matchBrackets:true,
+        mode: 'python'
+    });
+     editor.setOption("extraKeys", {
+         Tab: function(cm) {
+            var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+            cm.replaceSelection(spaces);
+        },
+          "F11": function(cm) {
+              cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+          },
+         "Esc": function(cm) {
+            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);se
+        }
+     });
+     //editor.setSize('auto','500')
+     $("form").on('submit',function(e) {
+         editor.save();
+     })
+
+    </script>
+{% endblock %}

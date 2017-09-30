@@ -1,0 +1,21 @@
+(dp0
+S'paras'
+p1
+S''
+p2
+sS'inputval'
+p3
+g2
+sS'name'
+p4
+S'helo'
+p5
+sS'stype'
+p6
+Vpython
+p7
+sS'script'
+p8
+S'import sys\nimport os\nsys.path.append(os.path.dirname(os.path.abspath(__file__))+"/"+"../../")\nfrom pymethod.pymethod import Filechan ,CMD_run\nhostname = \'\'\nusername = \'nginx\'\npassword = None\nlogname=\'helo\'\nlocal_dir=\'\'\nremote_dir=\'\'\n#Filechan.diruploaddir(local_dir=local_dir,remote_dir=remote_dir,hostname=hostname,port=22,logname=logname)\n#CMD_run.run_cmd(hostname,username,password=password,cmd=cmd,logname=\'he\')\n#Filechan.rm_fd(hostname=hostname,username=username,prmdir=\'/tmp/test/sss\',logname=logname)\n#Filechan.uplodfile(hostname=None,username=None,port=22,password=None,localfile=None,rmotefile=None,logname=None):\n'
+p9
+s.

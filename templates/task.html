@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create">
+ 新建
+</button>
+    <div class=hang2>
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="">All</a>
+        </li>
+    </ul>
+    <div class="row mark hang1"  >
+        <style> .hang1{margin: auto} .hang2{margin:0.05in;} </style>
+      {% autoescape lst %} <table class="table table-bordered"><tr class="success">
+            <th>任务</th>
+            <th>编辑</th>
+            <th>执行</th>
+            <th>日志</th>
+            <th>停止</th>
+        </tr>{{ lists }}</table>  {% endautoescape %}
+
+</div>
+</body>
+<script>
+    $('li').mouseenter(function () {
+        $(this).addClass('active');
+        $('li').not($(this)).removeClass('active');
+
+        idx=$(this).index('li');
+        $('.row').eq(idx).show(100);
+        $('.row').not($('.row').eq(idx)).hide(100);
+    })
+    $('.row').eq(0).show(100)
+</script>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新建脚本</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="">脚本名称:</label>
+                <input id="createname" type="text"  placeholder="name">
+                <select id="sel">
+                    <option value="bash">bash</option>
+                    <option value="python">python</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="ok" type="button" class="btn btn-primary">ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type=text/javascript>
+    $(document).ready(function(){
+        $("#ok").click(function(){
+           cname=$("input[id='createname']").val()
+            if (cname !== null) {
+
+            $.post("/task/create_t",
+                {
+                    type: $('#sel').val(),
+                    name: cname
+                },
+                function(data){
+                //alert(data);
+                    if (data =="ok"){
+                      window.location.reload()
+                    };
+
+                });
+            };
+        });
+    });
+
+     $("a.btn").click(function(){$(this).css("color",'#985f0d');
+
+     $.post("/task/run",
+          {
+          name: $(this).attr('name')
+          },function (data) {
+           console.log(data)
+          //alert(data);
+          })
+     });
+
+     function del(btn) {
+         console.log(btn.value);
+         $.post('/task/delete',{
+             name: btn.value
+         },function (data) {
+             console.log(data);
+             window.location.reload();
+         })
+     }
+
+     function stop(a) {
+        console.log(a.name)
+         $.get('/task/stop',{
+             name: a.name
+         },function (data) {
+             console.log(data);
+
+         })
+     }
+</script>
+
+{% endblock %}
+

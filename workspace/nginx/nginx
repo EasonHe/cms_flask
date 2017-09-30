@@ -1,0 +1,21 @@
+(dp0
+S'paras'
+p1
+V
+p2
+sS'inputval'
+p3
+g2
+sS'name'
+p4
+Vnginx
+p5
+sS'stype'
+p6
+Vpython
+p7
+sS'script'
+p8
+Vimport sys\u000aimport os\u000asys.path.append(os.path.dirname(os.path.abspath(__file__))+"/"+"../../")\u000afrom pymethod.pymethod import Filechan ,CMD_run\u000ahostname = '192.168.249.138'\u000ausername = 'root'\u000apassword = None\u000alogname='nginx'\u000alocal_dir=''\u000aremote_dir=''\u000a#Filechan.diruploaddir(local_dir=local_dir,remote_dir=remote_dir,hostname=hostname,port=22,logname=logname)\u000aCMD_run.run_cmd(hostname=hostname,username=username,cmd='ip addr',logname=logname)\u000a#Filechan.rm_fd(hostname=hostname,username=username,prmdir='/tmp/test/sss',logname=logname)\u000a#Filechan.uplodfile(hostname=None,username=None,port=22,password=None,localfile=None,rmotefile=None,logname=None):\u000a
+p9
+s.

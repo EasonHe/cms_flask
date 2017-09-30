@@ -1,0 +1,19 @@
+{% extends "bootstrap/base.html" %}
+<!doctype html>
+{% block head %}
+     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='codemirror/lib/codemirror.js') }}"></script>
+      <script src="{{ url_for('static', filename='codemirror/mode/python/python.js') }}"></script>
+      <script src="{{ url_for('static', filename='codemirror/mode/nginx/nginx.js') }}"></script>
+      <script src="{{ url_for('static', filename='codemirror/addon/selection/active-line.js') }}"></script>
+      <script src="{{ url_for('static', filename='codemirror/addon/edit/matchbrackets.js') }}"></script>
+      <script src="{{ url_for('static', filename='codemirror/addon/display/fullscreen.js') }}"></script>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='codemirror/lib/codemirror.css') }}">
+
+    <h1 class="page-header "> <a href="/">SCM</a> <small>The author:Eason   &emsp;&emsp;<a href="/logout">logout</a></small></h1>
+<script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+   {{super()}}
+{% endblock %}

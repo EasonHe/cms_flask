@@ -1,0 +1,60 @@
+{% extends "edt.html" %}
+
+
+{% block body %}
+<div class="row ">
+<style> .bk{border-style: ridge}</style>
+<div class="col-sm-1 col-sm-offset-1">
+    <a href="{{ superior }}"><button type="button" class="btn btn-primary btn-sm">返回上级目录</button></a>
+
+    {% autoescape flase %}
+    <p>{{top}}{{ allfile }}</p>
+    {% endautoescape %}
+
+</div>
+
+<div class="col-sm-6">
+
+</div>
+
+    <div class="col-sm-3">
+    <form action="/filedt" method="post" target="id_iframe">
+    <div class="form-group">
+        <label for="">路径：</label>
+        <input name="dir" type="text" class="form-control" value="{{sent}}" readonly="true">
+        <label for="">文件名：</label>
+        <input name="filename" type="text" class="form-control" placeholder="文件名">
+    </div>
+
+    <div class="form-group">
+        <label for="">创建与删除：</label>
+        <select name="fd" id="fd">
+            <option value='none'>None</option>
+            <option value="file" >创建文件</option>
+            <option value="dir" >创建文件夹</option>
+            <option value="del">删除文件或空文件夹</option>
+             <option value="rmtree">删除目录和文件</option>
+          {% if sent not in 'workfile/' %}
+            <option value="pull">git pull（写如分支切换，本地丢失原有数据）</option>
+            <option value="gitadd">add file and push to git server </option>
+              <option value="gitfdel">rm file and push to git server </option>
+            {% elif sent in 'workfile/' %}
+                <option value="clone">git clone(分支 空格 url)</option>
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit"value="ok" class="btn btn-primary">
+        <input type="reset" value="Cancel" class="btn btn-danger">
+
+    </div>
+</form>
+        <iframe id="id_iframe" name="id_iframe" style="height:100px"></iframe>
+    </div>
+
+
+</div >
+
+
+
+{% endblock %}

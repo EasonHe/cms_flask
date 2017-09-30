@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+
+{% block body  %}
+    <div class="dvbg">
+ <style>.dvbg{background-color: darkgray} </style>
+ <div class="col-md-10 col-md-offset-1">
+
+            <div class="form-group flo">
+                 <style> .flo{background-color:lightsteelblue}</style>
+                <span><a href="/">首页</a></span>&nbsp;<a id="indir" href="/showdir/{{ showdir }}">返回目录</a> <label id="file" for="">{{ file }}</label>
+                <textarea name="ft" id="ft" cols="24" rows="24" class="form-control">{{ filename }}</textarea>
+            </div>
+            <div class="yc">
+             <style> .yc{
+                 display: none;
+             } </style>
+
+                <input id ="msg" name="msg" type="text"/>
+            <button id = "gitpush">保存到GIT</button>
+            </div>
+            <div class="form-group">
+                <a type="btn" id="save" onclick="save_data()" class="btn btn-primary">ok</a>
+                <a class="btn btn-warning" onclick="showdir()">commit</a>
+
+            </div>
+    </div>
+    </div>
+    <script>
+    var editor =CodeMirror.fromTextArea(document.getElementById("ft"),{
+        lineNumbers: true,
+        indentUnit:4,
+        styleActiveLine: true,
+        matchBrackets: true,
+        mode: 'nginx',
+
+    });
+     editor.setOption("extraKeys", {
+         Tab: function(cm) {
+            var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+            cm.replaceSelection(spaces);
+        },
+          "F11": function(cm) {
+              cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+          },
+         "Esc": function(cm) {
+            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);se
+        }
+     });
+     editor.setSize('auto','500')
+     $("form").on('submit',function(e) {
+         editor.save();
+     })
+
+    $(document).ready(function(){
+        $("#gitpush").click(function(){
+             $("#jg").val("wwwwww")
+            $.post("/commit",
+                {
+                  "path": $("#indir").attr("href"),
+                  "msg": $("input[id='msg']").val()
+                },
+                function(data){
+                  console.log(data);
+
+                  alert("ok" + data + "\n状态：");
+
+                });
+              });
+            });
+    function showdir() {
+        $(".yc").toggle()
+
+    }
+
+    function save_data() {
+        const lab = $("label").html().trim();
+        const url = "/edt/" + lab;
+        console.log(url);
+        const txt = editor.getValue();
+        console.log(txt);
+        $.post(url,
+            {"ft":txt},
+            function (data,status) {
+                console.log(status);
+            }
+        );
+
+    }
+    </script>
+
+
+{% endblock %}
