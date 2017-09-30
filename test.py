@@ -19,4 +19,3 @@ def git_clone(giturl="ssh://git@gitlab.raiyee.cn:10022/afuos/afuos-config.git",d
 #git_op()
 #print type(indir)
 #print config.WORKFILE
-git_op()
